@@ -2,6 +2,7 @@ import styled, {css} from 'styled-components';
 
 type ContaienerProps = {
   isFocused: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.div<ContaienerProps>`
@@ -16,6 +17,10 @@ export const Container = styled.div<ContaienerProps>`
   border-color: #efeeed;
   }
 
+  span {
+    color: #eb4a46;
+  }
+
   ${props => props.isFocused && css`
      input{
        border-color: #333333;
@@ -25,6 +30,20 @@ export const Container = styled.div<ContaienerProps>`
     }
   `}
 
+  ${props => props.isErrored && css`
+    input {
+      border-color: #eb4a46;
+    }
+  `}
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance:textfield; 
+  }
   
 
 `;

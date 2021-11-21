@@ -5,9 +5,11 @@ import { Container } from './styles';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
+  label: string;
+  err: string;
 }
 
-export function Input({  name, ...rest }: InputProps) {
+export function Input({  name, label, err, ...rest }: InputProps) {
   const inputRef = useRef(null);
   const [ isFocused, setIsFocused] = useState(false)
   const { fieldName, defaultValue, error, registerField } = useField(name);
@@ -18,17 +20,20 @@ export function Input({  name, ...rest }: InputProps) {
       ref: inputRef.current,
       path: 'value'
     })
+    
   }, [fieldName, registerField]);
-
+  
   return (
-    <Container isFocused={isFocused}>
-      <p>{name}</p>
+    <Container isErrored={!!err} isFocused={isFocused}>
+      <p>{label}</p>
       <input
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         ref={inputRef}
         {...rest}
       />
+     <span>{err}</span>
+      
     </Container>
   );
 };
