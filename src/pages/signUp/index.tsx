@@ -1,17 +1,41 @@
 
-
-
 import { Form } from '@unform/web';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Container } from './styles';
+import * as Yup from 'yup';
+import { useCallback } from 'react';
+
+
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('O nome é obrigatorio'),
+  email: Yup.string()
+    .required('O email é obrigatorio')
+    .email('Esse email é invalido'),
+  cpf: Yup.number()
+    .required('O cpf é obrigatorio')
+    .min(11, 'Digite um cpf valido')
+    .max(11, 'Digite um cpf valido'),
+  telefone: Yup.number()
+  .required('O telefone é obrigatorio')
+  ,
+})
+
 
 export function SignUp() {
   
-  function handleSubmit(data: object): void {
-    console.log(data)
-  }
+  const handleSubmit = useCallback(async (data: object) => {
+    try {
+      await schema.validate(data, {
+        abortEarly: false,
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }, []);
 
+  
   return (
     <Container>
 
