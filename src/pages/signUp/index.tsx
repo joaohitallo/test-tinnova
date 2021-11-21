@@ -7,15 +7,16 @@ import { Input } from '../../components/Input';
 import { Container } from './styles';
 
 export function SignUp() {
-  function handleSubmit(){
-    console.log('ah')
+  
+  function handleSubmit(data: object): void {
+    console.log(data)
   }
 
   return (
     <Container>
 
       <Form onSubmit={handleSubmit}> 
-        <Input name="Nome completo [sem abreviações]" type="text" />
+        <Input name="Nome completo (sem abreviações)" type="text" />
         <Input name="E-mail" type="email" />
         <Input name="CPF" type="text" />
         <Input name="Telefone" type="tel" />
