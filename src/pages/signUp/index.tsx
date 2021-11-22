@@ -19,44 +19,55 @@ interface Errors {
 
 
 
+const schema = Yup.object().shape({
+  name: Yup.string().required('O nome é obrigatorio'),
+  email: Yup.string()
+    .required('O email é obrigatorio')
+    .email('Esse email é invalido'),
+  cpf: Yup.string()
+    //.min(11, 'Digite um cpf valido')
+    //.max(11, 'Digite um cpf valido')
+    .required('O cpf é obrigatorio'),
+  telefone: Yup.string()
+  .min(14, 'Digite um telefone valido')
+  .max(14, 'Digite um telefone valido')
+  .required('O telefone é obrigatorio')
+  ,
+})
 
 export function SignUp() {
   const [cpf, setCpf] = useState('')
   const [phone, setPhone] = useState('')
 
 
+
   const formRef = useRef<FormHandles>(null);
   const [errors, setErrors] = useState<Errors>({})
-  
-  
-  
-  const handleSubmit = useCallback(async (data: object) => {
+
+  function saveLS(data: object) {
+    var newData = data
+
+    if(localStorage.getItem('user') == null){
+      localStorage.setItem('user', '[]');
+    }
+
+    var oldData = JSON.parse(localStorage.getItem('user') || '[]')
+    oldData.push(newData);
+
     
+    localStorage.setItem('user', JSON.stringify(oldData))
+  }
 
+  const handleSubmit = useCallback(async (data: object) => {
     try {
-
       formRef.current?.setErrors({})
-
-      const schema = Yup.object().shape({
-        name: Yup.string().required('O nome é obrigatorio'),
-        email: Yup.string()
-          .required('O email é obrigatorio')
-          .email('Esse email é invalido'),
-        cpf: Yup.string()
-          //.min(11, 'Digite um cpf valido')
-          //.max(11, 'Digite um cpf valido')
-          .required('O cpf é obrigatorio'),
-        telefone: Yup.string()
-        .min(11, 'Digite um telefone valido')
-        .max(11, 'Digite um telefone valido')
-        .required('O telefone é obrigatorio')
-        ,
-      })
       await schema.validate(data, {
         abortEarly: false,
       });
 
-     
+      console.log(data)
+      saveLS(data);
+      
     } catch (err) {
       console.log(err)
       setErrors(getValidationErrors(err as any)) 
