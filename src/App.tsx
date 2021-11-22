@@ -8,6 +8,7 @@ import {
 import { SignUp } from './pages/signUp';
 import { Dashboard } from './pages/dashboard';
 
+
 function App() {
   return (
     <BrowserRouter>

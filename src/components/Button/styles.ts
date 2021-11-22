@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+type ContaienerProps = {
+  isDisable: boolean;
+}
+
+export const Container = styled.div<ContaienerProps>`
   display: flex;
   justify-content: center;
   padding: 0 1.5rem;
@@ -20,11 +24,17 @@ export const Container = styled.div`
     background-color: #00c8b3;
     color: #ffffff;
 
+    ${props => props.isDisable && css`
+     background-color: #f6f6f6;
+     color:#dddcdc;
+    `}
 
-    transition: filter 0.2s;
-        
-    &:hover {
-      filter: brightness(0.7);
-    }
+    ${props => !props.isDisable && css`
+      transition: filter 0.2s;  
+      &:hover {
+        filter: brightness(0.7);
+      }
+    `}
+
   }
 `;

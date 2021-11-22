@@ -36,13 +36,21 @@ const schema = Yup.object().shape({
 })
 
 export function SignUp() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [cpf, setCpf] = useState('')
   const [phone, setPhone] = useState('')
-
+  const [buttonDisable, setButtonDisable] = useState(true)
 
 
   const formRef = useRef<FormHandles>(null);
   const [errors, setErrors] = useState<Errors>({})
+
+  function test() {
+    if (name && email && cpf && phone ){
+      setButtonDisable(false)
+    }
+  }
 
   function saveLS(data: object) {
     var newData = data
@@ -80,18 +88,22 @@ export function SignUp() {
   return (
     <Container>
 
-      <Form   ref={formRef} onSubmit={handleSubmit}> 
+      <Form onChange={() => test()} ref={formRef} onSubmit={handleSubmit}> 
         <Input 
           name="name" 
           label="Nome Completo (sem abreviações)"
           err={errors.name}  
-          type="text" 
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <Input 
           name="email" 
           label="E-mail" 
           err={errors.email} 
           type="email" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Input 
           name="cpf" 
@@ -109,7 +121,7 @@ export function SignUp() {
           onChange={(e) => setPhone(mask(e.target.value,'phone'))}
           maxLength={14}
         />
-        <Button type="submit">
+        <Button type="submit" disable={buttonDisable}>
           Cadastrar
         </Button>
       </Form>
