@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
 import {mask} from '../../utils/getMaskInput'
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 
 
@@ -65,15 +65,17 @@ export function SignUp() {
     var newData = data
 
     if(localStorage.getItem('user') == null){
-      await fetch("https://private-9d65b3-tinnova.apiary-mock.com/users")
-          .then(response => response.json())
-          .then(data => setUsers(data));
-      localStorage.setItem('user', JSON.stringify(users))
+      const response = await fetch("https://private-9d65b3-tinnova.apiary-mock.com/users")
+      const data = await response.json()
+      setUsers(await (data))
+      
+        localStorage.setItem('user', JSON.stringify(users))
+      
+      
     }
 
     var oldData = JSON.parse(localStorage.getItem('user') || '[]')
     oldData.push(newData);
-
     
     localStorage.setItem('user', JSON.stringify(oldData))
   }
@@ -90,14 +92,16 @@ export function SignUp() {
         console.log(data)
         saveLS(data);
         
-      }, 300)
+      }, 3000)
       setLoad(true)
       setName('')
       setEmail('')
       setCpf('')
       setPhone('')
-      setButtonDisable(true)
-      alert('Usuario cadastrado')
+      
+      setTimeout(() => {
+        setButtonDisable(true)
+      }, 2000)
 
     } catch (err) {
       console.log(err)
@@ -107,6 +111,13 @@ export function SignUp() {
     }
   }, []);
 
+  useEffect(() =>{
+    const fetchData = async () => {
+      
+    }
+    fetchData()
+
+  },[])
   
   return (
     <Container>

@@ -17,12 +17,17 @@ export function Dashboard() {
 
 
 
-  function remove(name: string) {
-    user = user.filter(item => 
-      item.name !== name
-      ) 
-    setUsers(user)
-    localStorage.setItem('user', JSON.stringify(user));  
+  async function remove(name: string) {
+    setTimeout(() => {
+      user = user.filter(item => 
+        item.name !== name
+        ) 
+      
+      setUsers(user)
+      localStorage.setItem('user', JSON.stringify(user));
+      console.log('ahhh')
+    }, 2000)
+      
   }
 
   useEffect(() => {
@@ -34,9 +39,12 @@ export function Dashboard() {
           } 
           setUsers(user)
         } else {
-          fetch("https://private-9d65b3-tinnova.apiary-mock.com/users")
+          await fetch("https://private-9d65b3-tinnova.apiary-mock.com/users")
           .then(response => response.json())
           .then(data => setUsers(data));
+          for (const key in users) {
+            user.push(users[key])
+          } 
         }
         
     }
