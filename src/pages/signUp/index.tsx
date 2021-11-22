@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Container } from './styles';
+import { Loading} from '../../components/Loading'
 
 import * as Yup from 'yup'
 
@@ -45,6 +46,7 @@ export function SignUp() {
 
   const formRef = useRef<FormHandles>(null);
   const [errors, setErrors] = useState<Errors>({})
+  const [load, setLoad] = useState(false)
 
   function test() {
     if (name && email && cpf && phone ){
@@ -68,14 +70,19 @@ export function SignUp() {
 
   const handleSubmit = useCallback(async (data: object) => {
     try {
-      formRef.current?.setErrors({})
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+      setTimeout(() => {
+        setLoad(false)
+        formRef.current?.setErrors({})
+        schema.validate(data, {
+          abortEarly: false,
+        });
 
-      console.log(data)
-      saveLS(data);
-      
+        console.log(data)
+        saveLS(data);
+        
+      }, 300)
+      setLoad(true)
+
     } catch (err) {
       console.log(err)
       setErrors(getValidationErrors(err as any)) 
@@ -122,7 +129,7 @@ export function SignUp() {
           maxLength={14}
         />
         <Button type="submit" disable={buttonDisable}>
-          Cadastrar
+          {!!load ? <Loading /> : 'Cadastro'}
         </Button>
       </Form>
     </Container>
