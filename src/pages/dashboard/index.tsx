@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import CardUser from '../../components/CardUser';
 
@@ -17,10 +16,10 @@ export function Dashboard() {
 
 
 
-  async function remove(name: string) {
+  async function remove(cpf: string) {
     setTimeout(() => {
       user = user.filter(item => 
-        item.name !== name
+        item.cpf !== cpf
         ) 
       
       setUsers(user)
@@ -45,11 +44,12 @@ export function Dashboard() {
           for (const key in users) {
             user.push(users[key])
           } 
+
         }
         
     }
     fetchData()
-  }, [])
+  }, [user])
   
   
   return (
@@ -63,8 +63,11 @@ export function Dashboard() {
           cpf={dados.cpf}
           telefone={dados.phone}
         />
-        <button onClick={() => remove(dados.name)}>
+        <button onClick={() => remove(dados.cpf)}>
           excluir
+        </button>
+        <button >
+          Editar
         </button>
       </div>
       ))}

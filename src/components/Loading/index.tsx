@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 import { Container } from './styles';
 import loading from '../../assets/Rolling-1s-200px.svg'
 

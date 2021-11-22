@@ -13,7 +13,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 export function Input({  name, label, err, ...rest }: InputProps) {
   const inputRef = useRef(null);
   const [ isFocused, setIsFocused] = useState(false)
-  const { fieldName, defaultValue, error, registerField } = useField(name);
+  const { fieldName, registerField } = useField(name);
 
   useEffect(() => {
     registerField({
