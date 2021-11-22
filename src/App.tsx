@@ -1,18 +1,21 @@
-import React from 'react';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from "react-router-dom";
 
-import { GlobalStyle } from './styles/global';
+
 import { SignUp } from './pages/signUp';
 import { Dashboard } from './pages/dashboard';
 
 function App() {
   return (
-    <>
-      <Dashboard />
-      <SignUp />
-      
-
-      <GlobalStyle/>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route  exact path="/" component={SignUp}/>
+        <Route  exact path="/dashboard" component={Dashboard}/>
+      </Switch>
+  </BrowserRouter>
   );
 }
 

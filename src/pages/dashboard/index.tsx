@@ -25,7 +25,6 @@ export function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      
         if(localStorage.getItem('user') != null){
           let userLS = JSON.parse(localStorage.getItem('user') || '{}')
           for (const key in userLS) {
@@ -33,8 +32,6 @@ export function Dashboard() {
           } 
         }
         setUsers(user)
-
-        
     }
     fetchData()
   }, [])
@@ -44,13 +41,17 @@ export function Dashboard() {
     <Container>
       <div>
       {users.map(dados => (
+      <div key={dados.name}>
         <CardUser 
-          key={dados.name}
           name={dados.name}
           email={dados.email}
           cpf={dados.cpf}
           telefone={dados.telefone}
         />
+        <button onClick={() => remove(dados.name)}>
+          excluir
+        </button>
+      </div>
       ))}
       </div>
     </Container>
