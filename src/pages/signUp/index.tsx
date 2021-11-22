@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
-import {mask} from '../../utils/getMaskInput'
+import { useHistory } from 'react-router-dom'
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 
@@ -54,6 +54,12 @@ export function SignUp() {
   const formRef = useRef<FormHandles>(null);
   const [errors, setErrors] = useState<Errors>({})
   const [load, setLoad] = useState(false)
+
+  const history = useHistory();
+
+  function toDash(){
+    history.push('/dashboard')
+  }
 
   function changeForm() {
     if (name && email && cpf && phone ){
@@ -158,6 +164,9 @@ export function SignUp() {
         />
         <Button type="submit" disable={buttonDisable}>
           {!!load ? <Loading /> : 'Cadastro'}
+        </Button>
+        <Button onClick={toDash} disable={false}>
+          Usuarios
         </Button>
       </Form>
     </Container>

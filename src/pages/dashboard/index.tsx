@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import CardUser from '../../components/CardUser';
+import { Button } from '../../components/Button';
 
 import { Container, Content } from './styles';
 
@@ -14,7 +16,11 @@ export function Dashboard() {
   const [users, setUsers] = useState<user[]>([])
   var user: user[] = [];
 
+  const history = useHistory();
 
+  function toSignIn(){
+    history.push('/')
+  }
 
   async function remove(cpf: string) {
     setTimeout(() => {
@@ -71,7 +77,11 @@ export function Dashboard() {
         </button>
       </div>
       ))}
+      <Button onClick={toSignIn} disable={false}>
+          Cadastro
+        </Button>
       </Content>
+      
     </Container>
   );
 }
