@@ -2,18 +2,20 @@
 import { useEffect, useState } from 'react';
 import CardUser from '../../components/CardUser';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 
 interface user {
   name: string;
   email: string;
   cpf: string;
-  telefone: string;
+  phone: string;
 }
 
 export function Dashboard() {
   const [users, setUsers] = useState<user[]>([])
   var user: user[] = [];
+
+
 
   function remove(name: string) {
     user = user.filter(item => 
@@ -30,8 +32,13 @@ export function Dashboard() {
           for (const key in userLS) {
             user.push(userLS[key])
           } 
+          setUsers(user)
+        } else {
+          fetch("https://private-9d65b3-tinnova.apiary-mock.com/users")
+          .then(response => response.json())
+          .then(data => setUsers(data));
         }
-        setUsers(user)
+        
     }
     fetchData()
   }, [])
@@ -39,21 +46,21 @@ export function Dashboard() {
   
   return (
     <Container>
-      <div>
+      <Content>
       {users.map(dados => (
-      <div key={dados.name}>
+      <div className="card-content" key={dados.name}>
         <CardUser 
           name={dados.name}
           email={dados.email}
           cpf={dados.cpf}
-          telefone={dados.telefone}
+          telefone={dados.phone}
         />
         <button onClick={() => remove(dados.name)}>
           excluir
         </button>
       </div>
       ))}
-      </div>
+      </Content>
     </Container>
   );
 }

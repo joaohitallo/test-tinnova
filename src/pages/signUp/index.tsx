@@ -18,6 +18,12 @@ interface Errors {
   [key: string]: string;
 }
 
+interface user {
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string;
+}
 
 
 const schema = Yup.object().shape({
@@ -29,7 +35,7 @@ const schema = Yup.object().shape({
     //.min(11, 'Digite um cpf valido')
     //.max(11, 'Digite um cpf valido')
     .required('O cpf é obrigatorio'),
-  telefone: Yup.string()
+  phone: Yup.string()
   .min(14, 'Digite um telefone valido')
   .max(14, 'Digite um telefone valido')
   .required('O telefone é obrigatorio')
@@ -42,23 +48,27 @@ export function SignUp() {
   const [cpf, setCpf] = useState('')
   const [phone, setPhone] = useState('')
   const [buttonDisable, setButtonDisable] = useState(true)
+  const [users, setUsers] = useState<user[]>([])
 
 
   const formRef = useRef<FormHandles>(null);
   const [errors, setErrors] = useState<Errors>({})
   const [load, setLoad] = useState(false)
 
-  function test() {
+  function changeForm() {
     if (name && email && cpf && phone ){
       setButtonDisable(false)
     }
   }
 
-  function saveLS(data: object) {
+  async function saveLS(data: object) {
     var newData = data
 
     if(localStorage.getItem('user') == null){
-      localStorage.setItem('user', '[]');
+      await fetch("https://private-9d65b3-tinnova.apiary-mock.com/users")
+          .then(response => response.json())
+          .then(data => setUsers(data));
+      localStorage.setItem('user', JSON.stringify(users))
     }
 
     var oldData = JSON.parse(localStorage.getItem('user') || '[]')
@@ -82,6 +92,12 @@ export function SignUp() {
         
       }, 300)
       setLoad(true)
+      setName('')
+      setEmail('')
+      setCpf('')
+      setPhone('')
+      setButtonDisable(true)
+      alert('Usuario cadastrado')
 
     } catch (err) {
       console.log(err)
@@ -94,8 +110,9 @@ export function SignUp() {
   
   return (
     <Container>
-
-      <Form onChange={() => test()} ref={formRef} onSubmit={handleSubmit}> 
+      
+      <Form onChange={() => changeForm()} ref={formRef} onSubmit={handleSubmit}> 
+        <h1>Cadastro</h1>
         <Input 
           name="name" 
           label="Nome Completo (sem abreviações)"
@@ -121,7 +138,7 @@ export function SignUp() {
           maxLength={14}
         />
         <Input 
-          name="telefone" 
+          name="phone" 
           label="Telefone" 
           err={errors.telefone} 
           value={phone}

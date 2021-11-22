@@ -15,12 +15,13 @@ export const Container = styled.div<ContaienerProps>`
   outline: 0;
   border-width: 0 0 2px;
   border-color: #efeeed;
+  font-size: 1.5rem;
   }
 
   p {
-    font-family:700 'Roboto', sans-serif;
+    font-family:700 1.5rem 'Roboto', sans-serif;
     color:#efeeed;
-    font-size: 28px;
+    font-size: 2rem;
   }
 
   span {
@@ -44,9 +45,20 @@ export const Container = styled.div<ContaienerProps>`
 
   @media only screen and (min-width: 480px) and (max-width: 767px) {
     p{
-        font-size: 18px;
+      font-size: 1.5rem;
     }
-}
+    input {
+      font-size: 1rem;
+    }
+  }
+  @media only screen and (max-width: 479px) {
+    p{
+      font-size: 1rem;
+    }
+    input {
+      font-size: 0.5rem;
+    }
+  }
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
