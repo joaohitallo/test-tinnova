@@ -12,9 +12,17 @@ interface user {
 }
 
 export function Dashboard() {
-  const [users, setUsers] = useState([])
-  const user: user[] = [];
-  
+  const [users, setUsers] = useState<user[]>([])
+  var user: user[] = [];
+
+  function remove(name: string) {
+    user = user.filter(item => 
+      item.name !== name
+      ) 
+    setUsers(user)
+    localStorage.setItem('user', JSON.stringify(user));  
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       
@@ -24,8 +32,9 @@ export function Dashboard() {
             user.push(userLS[key])
           } 
         }
-        console.log(user[1].name)
-      
+        setUsers(user)
+
+        
     }
     fetchData()
   }, [])
@@ -34,9 +43,9 @@ export function Dashboard() {
   return (
     <Container>
       <div>
-      { user.map(dados => (
-        <CardUser
-          //key={dados.cpf}
+      {users.map(dados => (
+        <CardUser 
+          key={dados.name}
           name={dados.name}
           email={dados.email}
           cpf={dados.cpf}
