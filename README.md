@@ -34,7 +34,7 @@ This project was made using the follow technologies:
 
 ```bash
 # Clone Repository
-$ git clone https://github.com/joaohitallo/ignite-React-02-DTMoney.git
+$ git clone https://github.com/joaohitallo/test-tinnova
 ```
 
 ```bash
