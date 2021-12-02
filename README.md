@@ -9,7 +9,7 @@
 
 <div align="center">
   <sub> Made with by
-    <a href="https://github.com/joaohitallo">João Hitallo.
+    <a href="https://github.com/joaohitallo">Joaohitallo.
   </sub>
 </div>
 
