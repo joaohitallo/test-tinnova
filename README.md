@@ -7,11 +7,6 @@
   Projeto desenvolvido como teste pratico, em um processo seletivo da empresa Tinnova. O projeto tem como objetivo a criação de um formulário para cadastrar dados e buscar dados de uma api mock da empresa no localstorag. A também uma page "dashboard" para listar os usuários cadastrados no localStorage, dando a opção de excluir cada item
 </p>
 
-<div align="center">
-  <sub> Made with by
-    <a href="https://github.com/joaohitallo">Joaohitallo.
-  </sub>
-</div>
 
 # 📌 Contents
 
@@ -20,7 +15,7 @@
 * [How to Run](#computer-how-to-run)
 
 
-# :rocket: Technologies
+# :rocket: Technologies 
 This project was made using the follow technologies:
 
 * [Typescript](https://www.typescriptlang.org/)      
